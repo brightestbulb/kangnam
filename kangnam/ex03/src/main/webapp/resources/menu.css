@@ -1,0 +1,90 @@
+﻿@charset "utf-8";
+/* 초기화 css */
+body,h1,h2,h3,h4,h5,h6,p,blockquote,pre,dl,dd,ol,ul,fieldset,legend,figure,menu{margin:0;padding:0;border:0}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
+table,th,td{border-spacing:0;border-collapse:collapse}
+ol,ul,li{list-style:none}
+h1,h2,h3,h4,h5,h6{font-size:1em;font-weight:normal}
+input,textarea,select,button{margin:0;padding:0;border-radius:0;color:#333;font:normal 12px/1.2 "Nanum Gothic",sans-serif;outline:0;vertical-align:middle}
+a,a:link,a:visited,a:hover,a:active{text-decoration:none}
+a,button,input[type="submit"],input[type="button"],input[type="reset"]{border:0;background:transparent;cursor:pointer}
+img{border:0;vertical-align:top}
+body{color:#333;font:normal 12px/1.2 "Nanum Gothic",sans-serif}
+/* 초기화 css */
+
+.clearfix::after{display:block;content:"";clear:both}
+.blind{color:transparent;text-indent:-999px;overflow:hidden}
+ #topMenu {
+            height: 30px;  
+            width: 650px;  
+    }
+    #topMenu ul {           /* 메인 메뉴 안의 ul을 설정함: 상위메뉴의 ul+하위 메뉴의 ul */
+        list-style-type: none;  
+        margin: 0px;            
+        padding: 0px;           
+    }
+    #topMenu ul li {            /* 메인 메뉴 안에 ul 태그 안에 있는 li 태그의 스타일 적용(상위/하위메뉴 모두) */
+        color: white;               
+        background-color: #2d2d2d;  
+        float: left;                
+        line-height: 30px;          
+        vertical-align: middle;     
+        text-align: center;         
+        position: relative;         
+    }
+    .menuLink, .submenuLink {           /* 상위 메뉴와 하위 메뉴의 a 태그에 공통으로 설정할 스타일 */
+        text-decoration:none;               
+        display: block;                     
+        width: 63px;                       
+        font-size: 12px;                    
+        font-weight: bold;                  
+        font-family: "Trebuchet MS", Dotum; 
+    }
+    .menuLink {     /* 상위 메뉴의 글씨색을 흰색으로 설정 */
+        color: white;
+    }
+    .topMenuLi:hover .menuLink {    /* 상위 메뉴의 li에 마우스오버 되었을 때 스타일 설정 */
+        color: red;                 
+        background-color: #4d4d4d;  
+    }
+    .longLink {     /* 좀 더 긴 메뉴 스타일 설정 */
+        width: 63px;   
+    }
+     .submenuLink {          /* 하위 메뉴의 a 태그 스타일 설정 */
+        color: #2d2d2d;             
+        background-color: white;    
+        border: solid 1px black;    
+        margin-right: -1px;         /* [변경] 위 칸의 하단 테두리와 아래칸의 상단 테두리가 겹쳐지도록 설덩 */
+    }
+    .submenu {              /* 하위 메뉴 스타일 설정 */
+        position: absolute;     
+        height: 0px;            
+        overflow: hidden;       
+        transition: height .2s; 
+        -webkit-transition: height .2s; 
+        -moz-transition: height .2s; 
+        -o-transition: height .2s; 
+        width: 574px;           /* [변경] 가로 드랍다운 메뉴의 넓이 */
+    }
+    .submenu li {
+        display: inline-block;  /* [변경] 가로로 펼쳐지도록 설정 */
+    }
+    .topMenuLi:hover .submenu { /* 상위 메뉴에 마우스 모버한 경우 그 안의 하위 메뉴 스타일 설정 */
+        height: 32px;           /* [변경] 높이를 32px로 설정 */
+    }
+    .submenuLink:hover {        /* 하위 메뉴의 a 태그의 마우스 오버 스타일 설정 */
+        color: red;                 
+        background-color: #dddddd;  
+    }
+    
+     
+	     
+	} 
+    
+    
+table{width:100px}
+tbody{}
+tr{}
+td{height:33.3px;border:1px solid #e9e9e9;box-sizing:border-box}
+button{float:left; margin:2px;}
+

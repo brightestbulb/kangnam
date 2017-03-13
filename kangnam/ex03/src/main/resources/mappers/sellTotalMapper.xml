@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.kangnam.mapper.sellTotalMapper">
+
+	<!-- 페이징 처리 관련 쿼리문 -->
+	<select id="listPage" resultType="org.kangnam.domain.SellTotalVO">
+ 		<![CDATA[
+			SELECT SL_SQ, SL_DT, CPN, ONEDAY, MONDAY, TOTAL
+			FROM SL_TOTAL_VW
+			WHERE SL_SQ > 0
+ 			limit #{page}, 20
+ 		]]>
+	</select>
+
+
+	<select id="listCriteria" resultType="org.kangnam.domain.SellTotalVO">
+		<![CDATA[
+			SELECT SL_SQ, SL_DT, CPN, ONEDAY, MONDAY, TOTAL
+			FROM SL_TOTAL_VW
+			WHERE SL_SQ > 0
+ 			limit #{pageStart}, #{perPageNum}
+ 		]]>
+	</select>
+
+	<select id="countPaging" resultType="int">
+ 		<![CDATA[
+ 			SELECT COUNT(*) 
+ 			FROM SL_TOTAL_VW
+			WHERE SL_SQ > 0
+		]]>
+	</select>
+
+
+
+
+
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType != ''">
+				<![CDATA[ 
+					AND SL_DT >= #{searchType}
+					AND SL_DT <= #{keyword}
+				]]>
+			</if>
+		</if>
+	</sql>
+
+	<!-- sellTotal에 출력되는 구문은 여기입니다. -->
+	<select id="listSearch" resultType="org.kangnam.domain.SellTotalVO">
+		<![CDATA[  
+			SELECT SL_SQ, SL_DT, CPN, ONEDAY, MONDAY, TOTAL
+			FROM SL_TOTAL_VW
+ 			where SL_SQ > 0
+		]]>
+
+		<include refid="search"></include>
+  
+		<![CDATA[    
+			order by SL_SQ desc
+			limit #{pageStart}, #{perPageNum}
+		]]>
+	</select>
+
+	<select id="listSearchCount" resultType="int">
+		<![CDATA[  
+			select count(SL_SQ) 
+			FROM SL_TOTAL_VW
+			where SL_SQ > 0 
+		]]>
+
+		<include refid="search"></include>
+	</select>
+
+
+	<select id="total" resultType="org.kangnam.domain.SellTotalVO">
+		<![CDATA[  
+			SELECT SUM(CPN) AS SUMCPN, SUM(ONEDAY) AS SUMONE, SUM(MONDAY) AS SUMMON, SUM(TOTAL) AS SUMTOTAL
+			FROM SL_TOTAL_VW
+			WHERE SL_SQ > 0
+		]]>
+
+		<include refid="search"></include>
+	</select>
+</mapper>

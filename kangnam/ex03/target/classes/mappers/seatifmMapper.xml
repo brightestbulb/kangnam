@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.kangnam.mapper.SeatifmMapper">
+
+	<!-- 현재 좌석에 앉은 유저 출력 리스트 -->
+	<select id="list" resultType="org.kangnam.domain.SeatifmVO">
+      <![CDATA[
+         SELECT SEAT_SQ, SEAT_ALOC_SQ, SEAT_NM, MEM_NM, SEAT_ALOC_STRT_TM
+         FROM NOW_SEAT_VW
+      ]]>
+	</select>
+
+	<select id="monList" resultType="org.kangnam.domain.SeatifmVO">
+		SELECT T1.SEAT_SQ, T1.SEAT_NM, T2.MEM_NM, T2.MON_MEM_END_DD
+		FROM
+		(
+		SELECT SEAT_SQ, SEAT_NM
+		FROM SEAT_TB
+		WHERE SEAT_NM LIKE 'D%'
+		)T1 LEFT JOIN
+		(
+		SELECT SEAT.SEAT_SQ, MEM.MEM_NM, MMR.MON_MEM_END_DD
+		FROM MEM_TB MEM, MON_MEM_TB MM, MON_MEM_RGSTRT_TB MMR, SEAT_TB SEAT
+		WHERE SEAT.SEAT_SQ = MM.SEAT_SQ
+		AND MEM.MEM_SQ = MM.MEM_SQ
+		AND MM.MEM_SQ = MMR.MEM_SQ
+		AND MMR.MON_MEM_END_DD >= CURDATE()
+		)T2
+		ON T1.SEAT_SQ = T2.SEAT_SQ
+	</select>
+
+	<update id="update">
+      <![CDATA[
+         UPDATE SEAT_ALOC_TB
+         SET SEAT_ALOC_END_TM = CURTIME()
+         WHERE SEAT_ALOC_SQ = #{seat_aloc_sq}
+      ]]>
+	</update>
+
+
+
+</mapper>

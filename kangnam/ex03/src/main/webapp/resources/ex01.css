@@ -1,0 +1,48 @@
+﻿@charset "utf-8";
+/* 초기화 css */
+body,h1,h2,h3,h4,h5,h6,p,blockquote,pre,dl,dd,ol,ul,fieldset,legend,figure,menu{margin:0;padding:0;border:0}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
+table,th,td{border-spacing:0;border-collapse:collapse}
+ol,ul,li{list-style:none}
+h1,h2,h3,h4,h5,h6{font-size:1em;font-weight:normal}
+input,textarea,select,button{margin:0;padding:0;border-radius:0;color:#333;font:normal 12px/1.2 "Nanum Gothic",sans-serif;outline:0;vertical-align:middle}
+a,a:link,a:visited,a:hover,a:active{text-decoration:none}
+a,button,input[type="submit"],input[type="button"],input[type="reset"]{border:0;background:transparent;cursor:pointer}
+img{border:0;vertical-align:top}
+body{color:#333;font:normal 12px/1.2 "Nanum Gothic",sans-serif}
+/* 초기화 css */
+
+.clearfix::after{display:block;content:"";clear:both}
+.blind{color:transparent;text-indent:-999px;overflow:hidden}
+
+#searchBtn{border:2px;background:yellow}
+#newBtn{border:2px;background:yellow}
+
+#wrap{width:1920px}
+
+.G1{position:absolute;top:0px;left:0px;width:604px;height:504px;background:white;border:3px groove green}
+.G2{position:absolute;top:0px;left:646px;width:508px;height:504px;background:white;border:3px groove green}
+.G3{position:absolute;top:547px;left:0px;width:504px;height:510px;background:white;border:3px groove green}
+.G4{position:absolute;top:547px;left:547px;width:607px;height:510px;background:white;border:3px groove green}
+
+
+.s_box{position:absolute;width:100px;height:100px;background:#efefef;border:1px solid black;
+       background-size: 100% 100%;font-weight:bold;font-size:15px;
+        background-image: url(/resources/dist/img/desk9.png); color:#FF88A7}
+.s_box2{position:absolute;width:100px;height:100px;background:#9BC3FF;border:1px solid black;font-weight:bold;font-size:15px;
+        background-image: url(/resources/dist/img/desk9.png); color:#FF88A7;}
+.btnOut{font-weight:bold;color:#FF88A7}
+
+/* #FF88A7 */
+
+
+
+table{width:100px}
+tbody{}
+tr{}
+td{height:33.3px;border:1px solid #e9e9e9;box-sizing:border-box}
+button{float:left; margin:2px;}
+
+.ntbktg{position:absolute;left:1180px;width:120px;height:400px;background:green;border:2px groove green}
+.ntbktg td{font-family:Arial, sans-serif;font-size:14px;padding:5px 5px 5px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+

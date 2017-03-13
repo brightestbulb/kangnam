@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.kangnam.mapper.SeatMapper">
+
+	<insert id="create">
+		insert into seat_aloc_tb
+		(ADMN_ID,MEM_SQ,SEAT_SQ,SEAT_ALOC_DD,SEAT_ALOC_STRT_TM)
+		values(#{admn_id},#{mem_sq},#{seat_sq},CURDATE(),#{seat_aloc_strt_tm})
+	</insert>
+
+
+
+	<select id="listAll" resultType="org.kangnam.domain.SeatVO">
+		<![CDATA[
+ 			SELECT SEAT_ALOC_SQ, SEAT_NM,MEM_NM,SEAT_ALOC_DD,SEAT_ALOC_STRT_TM,SEAT_ALOC_END_TM
+			FROM seat_aloc_vw
+			WHERE SEAT_ALOC_SQ > 0
+			order by SEAT_ALOC_SQ desc
+		 ]]>
+	</select>
+
+	<select id="listPage" resultType="SeatVO">
+ <![CDATA[
+ SELECT SEAT_ALOC_SQ, SEAT_NM,MEM_NM,SEAT_ALOC_DD,SEAT_ALOC_STRT_TM,SEAT_ALOC_END_TM
+FROM seat_aloc_vw
+WHERE SEAT_ALOC_SQ > 0
+ order by SEAT_ALOC_SQ desc
+ limit #{page}, 20
+ ]]>
+	</select>
+
+	<select id="listCriteria" resultType="SeatVO">
+ <![CDATA[
+ SELECT SEAT_ALOC_SQ, SEAT_NM,MEM_NM,SEAT_ALOC_DD,SEAT_ALOC_STRT_TM,SEAT_ALOC_END_TM
+FROM seat_aloc_vw
+WHERE SEAT_ALOC_SQ > 0
+ order by SEAT_ALOC_SQ desc
+ limit #{pageStart}, #{perPageNum}
+ ]]>
+	</select>
+
+
+
+	<select id="countPaging" resultType="int">
+ <![CDATA[
+ select 
+   count(SEAT_ALOC_SQ) 
+ from 
+   seat_aloc_vw
+ where 
+   SEAT_ALOC_SQ > 0 
+ ]]>
+	</select>
+
+
+
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				and MEM_NM like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'c'.toString()">
+				and SEAT_NM like CONCAT('%', #{keyword}, '%')
+			</if>
+		</if>
+	</sql>
+
+	<select id="listSearch" resultType="SeatVO">
+<![CDATA[  
+  select * 
+  from seat_aloc_vw
+  where SEAT_ALOC_SQ > 0 
+]]>
+
+		<include refid="search"></include>
+  
+<![CDATA[    
+  order by SEAT_ALOC_SQ desc
+  limit #{pageStart}, #{perPageNum}
+]]>
+	</select>
+
+	<select id="listSearchCount" resultType="int">
+<![CDATA[  
+  select count(SEAT_ALOC_SQ) 
+  from seat_aloc_vw
+  where SEAT_ALOC_SQ > 0 
+]]>
+		<include refid="search"></include>
+
+	</select>
+
+	<!-- 현재 사용가능한 좌석 출력 쿼리 -->
+	<select id="day_seat_list" resultType="org.kangnam.domain.SellVO">
+		<![CDATA[
+			SELECT SEAT.SEAT_SQ, SEAT.SEAT_NM
+			FROM SEAT_TB SEAT LEFT JOIN
+			(
+			SELECT SEAT_SQ
+			FROM SEAT_ALOC_TB SA
+			WHERE SEAT_ALOC_END_TM IS NULL
+			GROUP BY SEAT_SQ
+			)T
+			ON SEAT.SEAT_SQ = T.SEAT_SQ
+			WHERE T.SEAT_SQ IS NULL
+			AND (SEAT.SEAT_NM LIKE '%A%'
+			OR SEAT.SEAT_NM LIKE '%B%'
+			OR SEAT.SEAT_NM LIKE '%C%')
+		]]>
+	</select>
+
+
+
+
+
+</mapper>

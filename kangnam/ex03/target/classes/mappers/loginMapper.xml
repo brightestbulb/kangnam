@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.kangnam.mapper.loginMapper">
+
+	<!-- 관리자 조회 쿼리문 -->
+	<select id="read" resultType="org.kangnam.domain.LoginVO">
+		<![CDATA[
+			SELECT ADMN_ID, ADMN_PWD, ADMN_NM, ADMN_TPHON
+			FROM ADMN_TB 
+			WHERE ADMN_ID = #{admn_id}  
+			AND ADMN_PWD = #{admn_pwd}
+		]]>
+	</select>
+
+	<!-- 로그인 쿼리문 -->
+	<select id="cnt" resultType="String">
+		<![CDATA[
+			SELECT COUNT(*) AS CNT
+			FROM ADMN_TB 
+			WHERE ADMN_ID = #{admn_id}  
+			AND ADMN_PWD = #{admn_pwd}
+		]]>
+	</select>
+
+
+
+
+
+</mapper>

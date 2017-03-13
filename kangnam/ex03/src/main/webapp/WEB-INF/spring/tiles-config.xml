@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="full" template="/WEB-INF/views/layout/full.jsp">
+		<put-attribute name="content" value="" />
+	</definition>
+
+
+	<definition name="login/*" extends="full">
+		<put-attribute name="content" value="/WEB-INF/views/login/{1}.jsp"></put-attribute>
+	</definition>
+
+	<definition name="admin/*" extends="full">
+		<put-attribute name="content" value="/WEB-INF/views/admin/{1}.jsp"></put-attribute>
+	</definition>
+
+	<definition name="default" template="/WEB-INF/views/layout/default_layout.jsp">
+		<put-attribute name="div1" value="/WEB-INF/views/seatifm/list.jsp" />
+		<put-attribute name="div2" value="/WEB-INF/views/layout/div2.jsp" />
+		<put-attribute name="div3" value="/WEB-INF/views/layout/div3.jsp" />
+		<put-attribute name="div4" value="/WEB-INF/views/layout/div4.jsp" />
+	</definition>
+
+
+	<definition name="*/*" extends="default">
+		<put-attribute name="div2" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
+	</definition>
+
+
+
+
+</tiles-definitions>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.kangnam.mapper.CouponMapper">
+
+	<insert id="create">
+		insert into cpn_tb (MEM_SQ,CPN_BY_DD,CPN_END_DD,CPN_NUM)
+		values(#{mem_sq},CURDATE(), DATE_ADD(CURDATE(), INTERVAL 3 MONTH),
+		#{cpn_num})
+	</insert>
+
+	<select id="read" resultType="org.kangnam.domain.CouponVO">
+		SELECT MEM_SQ,CPN_BY_DD,CPN_END_DD,CPN_NUM,CPN_SQ
+		FROM cpn_tb
+		where CPN_SQ = #{cpn_sq}
+	</select>
+
+	<update id="update">
+		update cpn_tb set CPN_NUM =#{cpn_num}, CPN_BY_DD =#{cpn_by_dd}, CPN_END_DD
+		=#{cpn_end_dd}
+		where CPN_SQ = #{cpn_sq}
+	</update>
+
+	<delete id="delete">
+		delete from cpn_tb where CPN_SQ = #{cpn_sq}
+	</delete>
+
+	<select id="listAll" resultType="org.kangnam.domain.CouponVO">
+ <![CDATA[
+ SELECT CPN_SQ, MEM_NM, CPN_BY_DD, CPN_NUM
+FROM cpn_vw
+ where CPN_SQ > 0 
+ order by CPN_SQ desc, CPN_BY_DD desc
+ ]]>
+	</select>
+
+	<select id="listPage" resultType="CouponVO">
+ <![CDATA[
+ SELECT CPN_SQ, MEM_NM, CPN_BY_DD, CPN_NUM
+FROM cpn_vw
+ where CPN_SQ > 0 
+ order by CPN_SQ desc, CPN_BY_DD desc
+ limit #{page}, 20
+ ]]>
+	</select>
+
+	<select id="listCriteria" resultType="CouponVO">
+ <![CDATA[
+ SELECT CPN_SQ, MEM_NM, CPN_BY_DD, CPN_NUM
+FROM cpn_vw
+ where CPN_SQ > 0 
+ order by CPN_SQ desc, CPN_BY_DD desc
+ limit #{pageStart}, #{perPageNum}
+ ]]>
+	</select>
+
+
+
+	<select id="countPaging" resultType="int">
+ <![CDATA[
+ select 
+   count(CPN_SQ) 
+ from 
+   cpn_vw
+ where 
+   CPN_SQ > 0 
+ ]]>
+	</select>
+
+
+
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				and MEM_NM like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'c'.toString()">
+				and CPN_BY_DD like CONCAT('%', #{keyword}, '%')
+			</if>
+		</if>
+	</sql>
+
+	<select id="listSearch" resultType="CouponVO">
+<![CDATA[  
+  select * 
+  from cpn_vw
+  where CPN_sQ > 0 
+]]>
+
+		<include refid="search"></include>
+  
+<![CDATA[    
+  order by CPN_SQ desc
+  limit #{pageStart}, #{perPageNum}
+]]>
+	</select>
+
+	<select id="listSearchCount" resultType="int">
+<![CDATA[  
+  select count(CPN_SQ) 
+  from cpn_vw
+  where CPN_SQ > 0 
+]]>
+		<include refid="search"></include>
+
+	</select>
+
+</mapper>
